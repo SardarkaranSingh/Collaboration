@@ -1,6 +1,7 @@
 package com.niit.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +47,8 @@ public ResponseEntity<?> registerUser(@RequestBody User user)
 	
 }
 @RequestMapping(value="/login",method=RequestMethod.POST)
-public ResponseEntity<?> login(@RequestBody User user)
+public ResponseEntity<?> login(@RequestBody User user,HttpSession session)
+
 {
 	User validUser=userDao.login(user);
 	if(validUser==null)
@@ -56,7 +58,28 @@ public ResponseEntity<?> login(@RequestBody User user)
 	}
 	
 	else
-		return new ResponseEntity<User>(validUser,HttpStatus.OK);
+		validUser.setOnline(true);
+	userDao.update(validUser);
+	session.setAttribute("loginId",user.getEmail());
+	return new ResponseEntity<User>(validUser,HttpStatus.OK);
+
+
+}
+@RequestMapping(value="/logout",method=RequestMethod.PUT)
+public ResponseEntity<?> logout(HttpSession session){
+	String email=(String)session.getAttribute("loginId");
+	if(email==null)
+	{
+		ErrorClazz error=new ErrorClazz(4,"Please Login...");
+		return new ResponseEntity<ErrorClazz>(error,HttpStatus.UNAUTHORIZED);
+	}
+	
+	User user = userDao.getUser(email);
+	user.setOnline(false);
+	userDao.update(user);
+	session.removeAttribute("loginId");
+	session.invalidate();
+	return new ResponseEntity<User>(user,HttpStatus.OK);
 }
 }
  

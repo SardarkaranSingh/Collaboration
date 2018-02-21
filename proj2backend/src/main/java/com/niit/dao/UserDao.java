@@ -7,8 +7,9 @@ public interface UserDao
 	public void registerUser(User user);
 	boolean isEmailUnique(String email);
 	User login(User user);
-	
 	boolean isValidate(User user);
+	void update(User ValidUser);
+	public User getUser(String email);
 	
 
 }
