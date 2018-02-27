@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row">
+         <div ng-repeat="job in jobs">
+            <div class="panel panel-info">
+            <div class="panel-heading"><a href="#/getjob/{{job.id}}"></a>{{job.jobTitle}}</div>
+            </div>
+            <div class="panel-body">
+            <b>posted on</b>{{job.postedOn | date:'medium'}}<br>
+            <b>skills Required</b>{{job.skillsRequired}}
+            </div>
+            
+            
+            </div>
+     
+   
+   </div>
+   
+   </div>
