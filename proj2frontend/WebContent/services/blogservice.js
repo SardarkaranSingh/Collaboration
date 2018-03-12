@@ -27,6 +27,22 @@ app.factory('BlogService',function($http){
 	blogService.reject=function(blog,rejectionReason){
 		return $http.put("http://localhost:8085/proj2middleware/reject/"+rejectionReason,blog)
 	}
+	blogService.updateLikes=function(id){
+		return $http.put("http://localhost:8085/proj2middleware/updatelikes/"+id);
+	}
+	
+	blogService.addComment=function(blogComment){
+		return $http.post("http://localhost:8085/proj2middleware/addcomment",blogComment);
+	}
+	
+	blogService.getBlogComments=function(id){
+		return $http.get("http://localhost:8085/proj2middleware/blogcomments/"+id);
+	}
+	
+	blogService.hasUserLikedBlog=function(id){
+		return $http.get("http://localhost:8085/proj2middleware/hasuserlikedblog/"+id)
+	}
+	
 	return blogService;
 	
 })
