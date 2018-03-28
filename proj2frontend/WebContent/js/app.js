@@ -61,6 +61,22 @@ app.config(function($routeProvider){
 	.when('/profilepic',{
 		templateUrl:'views/uploadprofilepic.html'
 	})
+	.when('/suggestedusers',{
+		templateUrl:'views/suggestedusers.html',
+		controller:'FriendCtrl'
+	})
+	.when('/pendingrequests',{
+		templateUrl:'views/pendingrequests.html',
+		controller:'FriendCtrl'
+	})
+	.when('/friends',{
+		templateUrl:'views/friendsList.html',
+		controller:'FriendCtrl'
+	})
+	.when('/chat',{
+		templateUrl:'views/chat.html',
+		controller:'ChatCtrl'
+	})
 	
 	.otherwise({
 		templateUrl:'views/home.html'
